@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type="text/css" href="{{ constant('Netresearch\\Timalytics\\Config::URL_BOOTSTRAP_CSS') }}" rel="stylesheet">
+        <link type="text/css" href="{{ constant('Netresearch\\Timalytics\\Config::URL_BOOTSTRAP_THEME') }}" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="custom.css" />
+        <script type="text/javascript" src="{{ constant('Netresearch\\Timalytics\\Config::URL_JQUERY_JS') }}"></script>
+        <script type="text/javascript" src="{{ constant('Netresearch\\Timalytics\\Config::URL_BOOTSTRAP_JS') }}"></script>
+
+        {%block header%}<title>Standuptool</title>{%endblock%}
+        <style type="text/css">
+.team, .project {
+    margin: 0.5ex;
+}
+.project {
+    width: 35ex;
+}
+.team {
+    min-width: 35ex;
+}
+
+.mood-cool td {
+    background-color: #EFE;
+}
+.mood-solala td {
+    background-color: #EEE;
+}
+.mood-sucks td {
+    background-color: #FDD;
+}
+        </style>
+    </head>
+    <body>
+    <div class="navbar navbar-inverse" role="navigation" id="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ constant('Netresearch\\Timalytics\\Config::URL_TIMETRACKER') }}">Timetracker</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="index.php">Monat</a></li>
+                <li><a href="projects.php">Projekt</a></li>
+                <li><a href="support.php">Support</a></li>
+                <li class="active"><a href="standup.php">Standup</a></li>
+                <li><a href="calendar.php">Kalender</a></li>
+            </ul>
+            {%block navinner%}{%endblock%}
+        </div>
+    </div>
+    {%block content%}{%endblock%}
+    </body>
+</html>

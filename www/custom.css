@@ -1,0 +1,42 @@
+td.r, th.r {
+    text-align: right;
+}
+tr.sonntag td  {
+    border-bottom: 2px solid #DDD;
+}
+
+meter {
+    -webkit-appearance: none;
+}
+
+meter::-webkit-meter-optimum-value {
+    background: red;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff7777), to(#dd4444));
+}
+
+meter::-webkit-meter-suboptimum-value {
+    background: yellow;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffee77), to(#ddbb33));
+}
+
+meter::-webkit-meter-even-less-good-value {
+    background: green;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c9eca6), to(#77aa33));
+}
+
+.level1 {
+    font-weight: bold;
+    background: silver;
+}
+.level2 {
+    font-weight: normal;
+    background: lightgrey;
+}
+.level3 {
+    font-style: italic;
+}
+
+a:target#navigation,
+:target#navigation {
+    display: none;
+}

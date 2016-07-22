@@ -1,0 +1,137 @@
+BEGIN:VCALENDAR
+METHOD:PUBLISH
+PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
+VERSION:2.0
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:Neujahr
+DTSTART;VALUE=DATE:20140101
+DTEND;VALUE=DATE:20140102
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:Neujahr ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:Neujahr-Sachsen-201401011399659600@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:Karfreitag
+DTSTART;VALUE=DATE:20140418
+DTEND;VALUE=DATE:20140419
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:Karfreitag ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:Karfreitag-Sachsen-201404181194667256@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:Ostermontag
+DTSTART;VALUE=DATE:20140421
+DTEND;VALUE=DATE:20140422
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:Ostermontag ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:Ostermontag-Sachsen-201404211204401574@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:Tag der Arbeit
+DTSTART;VALUE=DATE:20140501
+DTEND;VALUE=DATE:20140502
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:Tag der Arbeit ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:Tag der Arbeit-Sachsen-201405011408533128@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:Christi Himmelfahrt
+DTSTART;VALUE=DATE:20140529
+DTEND;VALUE=DATE:20140530
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:Christi Himmelfahrt ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:Christi Himmelfahrt-Sachsen-201405291090675586@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:Pfingstmontag
+DTSTART;VALUE=DATE:20140609
+DTEND;VALUE=DATE:20140610
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:Pfingstmontag ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:Pfingstmontag-Sachsen-201406091288839606@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:Tag der Deutschen Einheit
+DTSTART;VALUE=DATE:20141003
+DTEND;VALUE=DATE:20141004
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:Tag der Deutschen Einheit ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:Tag der Deutschen Einheit-Sachsen-201410031402471661@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:Reformationstag
+DTSTART;VALUE=DATE:20141031
+DTEND;VALUE=DATE:20141101
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:Reformationstag ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:Reformationstag-Sachsen-201410311403281249@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:Buss- und Bettag
+DTSTART;VALUE=DATE:20141119
+DTEND;VALUE=DATE:20141120
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:Buss- und Bettag ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:Buss- und Bettag-Sachsen-201411191313410133@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:1. Weihnachtsfeiertag
+DTSTART;VALUE=DATE:20141225
+DTEND;VALUE=DATE:20141226
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:1. Weihnachtsfeiertag ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:1. Weihnachtsfeiertag-Sachsen-201412251233536619@schulferien.org
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20120101T145332Z
+LAST-MODIFIED:20120101T145332Z
+DTSTAMP:20120101T145332Z
+SUMMARY:2. Weihnachtsfeiertag
+DTSTART;VALUE=DATE:20141226
+DTEND;VALUE=DATE:20141227
+URL:http://www.schulferien.org/Feiertage
+DESCRIPTION:2. Weihnachtsfeiertag ist gesetzlicher Feiertag in Sachsen. Alle Termine auf www.schulferien.org/Feiertage
+TRANSP:TRANSPARENT
+UID:2. Weihnachtsfeiertag-Sachsen-201412261261603408@schulferien.org
+END:VEVENT
+END:VCALENDAR

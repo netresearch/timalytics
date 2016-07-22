@@ -1,0 +1,31 @@
+{% extends "base.twig" %}
+
+{%block header%}
+<title>Standuptool</title>
+<script src="{{ constant('Netresearch\\Timalytics\\Config::URL_MASONRY_JS') }}"></script>
+{%endblock%}
+
+{% block content %}
+<div class="teams">
+    <div class="grid-sizer"></div>
+    {% for name, team in arTeams %}
+    <div class="panel panel-default team">
+        <div class="panel-heading">{{name}}</div>
+        <div class="list-group">
+            {% for user in team %}
+            <a href="user.php?name={{user.name}}" class="list-group-item">{{user.prettyname}}</a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('.teams').masonry({
+            // options
+            itemSelector: '.team'
+        });
+    });
+</script>
+
+{% endblock %}

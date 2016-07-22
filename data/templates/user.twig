@@ -1,0 +1,52 @@
+{% extends "base.twig" %}
+
+{%block header%}
+<title>Standuptool: {{prettyname}}</title>
+<script src="{{ constant('Netresearch\\Timalytics\\Config::URL_MASONRY_JS') }}"></script>
+{%endblock%}
+
+
+{%block navinner%}
+<form class="navbar-form pull-right" action="/user.php" method="get">
+    <select name="name" onchange="this.form.submit();" class="form-control input-sm">
+        {%for name,username in arActiveUsers %}
+        <option{% if user == name %} selected="selected"{%endif%} value="{{name}}">{{username}}</option>
+        {%endfor%}
+    </select>
+</form>
+{%endblock%}
+
+
+{% block content %}
+<div class="projects">
+    {% for project in arProjects %}
+    <div class="panel panel-default project">
+        <div class="panel-heading">{{project.name}} / {{project.allcustomers}} ({{project.activities|join(', ')}})</div>
+        <ul class="list-group entries">
+            {% for entry in project.entries %}
+            <li class="list-group-item">
+                <strong>
+                    {% if entry.ticket %}
+                    <a href="{{ constant('Netresearch\\Timalytics\\Config::URL_BUGTRACKER') }}{{entry.ticket}}">{{entry.ticket}}</a>
+                    {%endif%}
+                </strong>
+
+                {% if entry.count > 1 %}
+                <span class="badge">{{entry.count}}</span>
+                {%endif%}
+                {{entry.description}}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('.projects').masonry({
+            // options
+            itemSelector: '.project'
+        });
+    });
+</script>
+{% endblock %}
