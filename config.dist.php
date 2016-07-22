@@ -52,6 +52,6 @@ class Config_Dist
     const URL_BOOTSTRAP_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css';
     const URL_JQUERY_JS = 'https://code.jquery.com/jquery-2.2.4.min.js';
     const URL_BOOTSTRAP_JS = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js';
-    const URL_MASONRY_JS = 'js/masonry.pkgd.min.js';
+    const URL_MASONRY_JS = 'https://npmcdn.com/masonry-layout@4.1.0/dist/masonry.pkgd.min.js';
     const URL_BUGTRACKER = 'https://bugs.nr/';
 }
