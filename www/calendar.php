@@ -10,10 +10,8 @@ $additionalHeader = <<<HTM
   <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.0/fullcalendar.print.css' rel='stylesheet' media='print' />
   <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.0/fullcalendar.min.js'></script>
-
-
-  <link href='js/qtip/jquery.qtip.min.css' rel='stylesheet' />
-  <script src='js/qtip/jquery.qtip.min.js'></script>
+  <link href='https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js'></script>
   <style>
 	body {
 		margin: 0;
