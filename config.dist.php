@@ -48,10 +48,10 @@ class Config_Dist
 
     const URL_TIMETRACKER = 'https://github.com/netresearch/timetracker';
 
-    const URL_BOOTSTRAP_CSS = 'https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css';
-    const URL_BOOTSTRAP_THEME = 'https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css';
+    const URL_BOOTSTRAP_CSS = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css';
+    const URL_BOOTSTRAP_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css';
     const URL_JQUERY_JS = 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js';
-    const URL_BOOTSTRAP_JS = 'https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js';
+    const URL_BOOTSTRAP_JS = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js';
     const URL_MASONRY_JS = 'js/masonry.pkgd.min.js';
     const URL_BUGTRACKER = 'https://bugs.nr/';
 }
