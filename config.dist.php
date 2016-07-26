@@ -26,9 +26,9 @@ namespace Netresearch\Timalytics;
  */
 class Config_Dist
 {
-    const DB_HOST = 'localhost';
+    const DB_HOST = 'db';
 
-    const DB_PASS = '';
+    const DB_PASS = 'timalytics';
 
     const DB_USER = 'timalytics';
 

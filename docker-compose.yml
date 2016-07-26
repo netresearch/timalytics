@@ -1,0 +1,33 @@
+version: '2'
+services:
+  web:
+    image: php:7-alpine
+    depends_on:
+      - db
+    volumes:
+      - ./:/var/www
+    ports:
+      - 8888:8888
+    command:
+      /bin/sh -c "set -ex; docker-php-ext-install pdo_mysql calendar; php -S 0.0.0.0:8888 -t /var/www/www"
+    links:
+      - db:db
+
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=timalytics_root
+      - MYSQL_DATABASE=timalytics
+      - MYSQL_USER=timalytics
+      - MYSQL_PASSWORD=timalytics
+    volumes:
+      - ./data/tables.sql:/docker-entrypoint-initdb.d/timalytics_setup.sql:ro
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - 8080:80
+    links:
+      - db:db

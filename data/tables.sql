@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS timalytics
+  CHARACTER SET = utf8
+  COLLATE utf8_bin;
+
 CREATE TABLE IF NOT EXISTS `plusminus` (
   `pm_id` int(11) NOT NULL AUTO_INCREMENT,
   `pm_username` varchar(32) NOT NULL,

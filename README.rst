@@ -15,10 +15,42 @@ Installation
 
 #. Checkout from Git repository
 #. run composer install
-#. create database and tables from data/tables.sql
+#. create database and tables from data/tables.sql - if not using docker-compose
 #. copy over config.dist.php to config.php and fill in
 
-- http://localhost/
+Starting
+========
+
+Docker
+------
+
+Starts a single PHP 7 Container as web server with Timalytics sources::
+
+    $ run ./run.sh
+
+
+DB server for Timalytics must be prepared manually.
+
+- http://localhost:8888/
+
+Docker + docker-compose
+-----------------------
+
+Starts a single PHP 7 Container as web server with Timalytics sources and a
+linked MariaDB server with Timalytics database and tables prepared::
+
+    $ docker-compose up web
+
+- http://localhost:8888/
+
+Access Timalytics database
+..........................
+
+You can use phpMyAdmin to access your Timalytics database::
+
+    $ docker-compose up pma
+
+- http://localhost:8080/
 
 Features
 ========
