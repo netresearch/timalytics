@@ -10,6 +10,7 @@ $dbTools = new PDO(
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     )
 );
+$dbTools->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $user        = loadUsername();
 $month       = date('n');
