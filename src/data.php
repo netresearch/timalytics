@@ -94,6 +94,19 @@ $pmRow = $dbTools->query(
 $plusminusHours = null;
 if ($pmRow) {
     $plusminusHours = $pmRow->pm_minutes_absolute / 60;
+} else {
+    $firstRow = $db->query(
+        'SELECT day FROM entries'
+        . ' JOIN users ON (users.id = entries.user_id)'
+        . ' WHERE users.username = ' . $dbTools->quote($user)
+        . ' ORDER BY day LIMIT 1'
+    )->fetchObject();
+    list($firstYear, $firstMonth) = explode('-', $firstRow->day);
+    if ($firstYear == $year && $firstMonth == $month
+        || ($firstYear + 1 == $year && $firstMonth == 12 && $month = 1)
+    ) {
+        $plusminusHours = 0;
+    }
 }
 
 if (isset($_POST['report']) && isset($_POST['minutes'])) {
