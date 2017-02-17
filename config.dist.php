@@ -25,10 +25,10 @@ $GLOBALS['cfg']['arIpUser'] = array();
 $GLOBALS['cfg']['arInactiveUsers'] = array();
 
 $GLOBALS['cfg']['URL_TIMETRACKER'] = 'https://github.com/netresearch/timetracker';
-$GLOBALS['cfg']['URL_BOOTSTRAP_CSS'] = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css';
-$GLOBALS['cfg']['URL_BOOTSTRAP_THEME'] = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css';
-$GLOBALS['cfg']['URL_JQUERY_JS'] = 'https://code.jquery.com/jquery-2.2.4.min.js';
-$GLOBALS['cfg']['URL_BOOTSTRAP_JS'] = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js';
-$GLOBALS['cfg']['URL_MASONRY_JS'] = 'https://unpkg.com/masonry-layout@4.1.0/dist/masonry.pkgd.min.js';
+$GLOBALS['cfg']['URL_BOOTSTRAP_CSS'] = 'css/bootstrap.min.css';
+$GLOBALS['cfg']['URL_BOOTSTRAP_THEME'] = 'css/bootstrap-theme.min.css';
+$GLOBALS['cfg']['URL_JQUERY_JS'] = 'js/jquery.min.js';
+$GLOBALS['cfg']['URL_BOOTSTRAP_JS'] = 'js/bootstrap.min.js';
+$GLOBALS['cfg']['URL_MASONRY_JS'] = 'js/masonry.pkgd.min.js';
 $GLOBALS['cfg']['URL_BUGTRACKER'] = 'https://bugs.nr/';
 ?>
