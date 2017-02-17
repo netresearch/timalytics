@@ -122,7 +122,8 @@ echo $twig->render(
         'user'          => $user,
         'prettyname'    => getPrettyName($user),
         'arActiveUsers' => getActiveUsers($db),
-        'showStandup'   => $nShowStandup
+        'showStandup'   => $nShowStandup,
+        'cfg'           => $GLOBALS['cfg'],
     )
 );
 ?>

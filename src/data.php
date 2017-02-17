@@ -2,9 +2,9 @@
 require_once __DIR__ . '/../src/db.php';
 
 $dbTools = new PDO(
-    'mysql:host=' . Netresearch\Timalytics\Config::DB_HOST . ';dbname=' . Netresearch\Timalytics\Config::DB_NAME,
-    Netresearch\Timalytics\Config::DB_USER,
-    Netresearch\Timalytics\Config::DB_PASS,
+    'mysql:host=' . $GLOBALS['cfg']['DB_HOST'] . ';dbname=' . $GLOBALS['cfg']['DB_NAME'],
+    $GLOBALS['cfg']['DB_USER'],
+    $GLOBALS['cfg']['DB_PASS'],
     array(
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET names utf8',
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

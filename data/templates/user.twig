@@ -2,7 +2,7 @@
 
 {%block header%}
 <title>Standuptool: {{prettyname}}</title>
-<script src="{{ constant('Netresearch\\Timalytics\\Config::URL_MASONRY_JS') }}"></script>
+<script src="{{ cfg.URL_MASONRY_JS }}"></script>
 {%endblock%}
 
 
@@ -27,7 +27,7 @@
             <li class="list-group-item">
                 <strong>
                     {% if entry.ticket %}
-                    <a href="{{ constant('Netresearch\\Timalytics\\Config::URL_BUGTRACKER') }}{{entry.ticket}}">{{entry.ticket}}</a>
+                    <a href="{{ cfg.URL_BUGTRACKER }}{{entry.ticket}}">{{entry.ticket}}</a>
                     {%endif%}
                 </strong>
 

@@ -60,7 +60,7 @@ function getActiveUsers(PDO $db)
     $res = $db->query(
         'SELECT users.username as username, users.id as userid'
         . ' FROM users'
-        . ' WHERE username NOT IN ("' . implode('", "', array_keys(Netresearch\Timalytics\Config::$arInactiveUsers)) . '")'
+        . ' WHERE username NOT IN ("' . implode('", "', array_keys($GLOBALS['cfg']['arInactiveUsers'])) . '")'
         . ' ORDER BY username',
         PDO::FETCH_ASSOC
     );
@@ -111,8 +111,8 @@ function loadUsername()
 function getUserByIp()
 {
     $ip = $_SERVER['REMOTE_ADDR'];
-    if (isset(\Netresearch\Timalytics\Config::$arIpUser[$ip])) {
-        $user = \Netresearch\Timalytics\Config::$arIpUser[$ip];
+    if (isset($GLOBALS['cfg']['arIpUser'][$ip])) {
+        $user = $GLOBALS['cfg']['arIpUser'][$ip];
     } else {
         $arUsers = getActiveUsers($GLOBALS['db']);
         $user = reset($arUsers);
