@@ -30,14 +30,16 @@ foreach ($stmt as $row) {
 }
 
 //load times
-$stmt = $db->query(
-    'SELECT project_id, SUM(duration) as duration'
-    . ' FROM entries'
-    . ' WHERE project_id IN (' . implode(',', $ids) . ')'
-    . ' GROUP BY project_id'
-);
-foreach ($stmt as $row) {
-    $projects[$row['project_id']]['duration'] = $row['duration'];
+if (count($ids)) {
+    $stmt = $db->query(
+        'SELECT project_id, SUM(duration) as duration'
+        . ' FROM entries'
+        . ' WHERE project_id IN (' . implode(',', $ids) . ')'
+        . ' GROUP BY project_id'
+    );
+    foreach ($stmt as $row) {
+        $projects[$row['project_id']]['duration'] = $row['duration'];
+    }
 }
 
 $customers = array();

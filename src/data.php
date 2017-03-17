@@ -102,7 +102,12 @@ if ($pmRow) {
         . ' WHERE users.username = ' . $dbTools->quote($user)
         . ' ORDER BY day LIMIT 1'
     )->fetchObject();
-    list($firstYear, $firstMonth) = explode('-', $firstRow->day);
+    if ($firstRow !== false) {
+        list($firstYear, $firstMonth) = explode('-', $firstRow->day);
+    } else {
+        $firstYear  = date('Y');
+        $firstMonth = date('m');
+    }
     if ($firstYear == $year && $firstMonth == $month
         || ($firstYear + 1 == $year && $firstMonth == 12 && $month = 1)
     ) {
