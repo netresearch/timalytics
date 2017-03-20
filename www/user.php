@@ -8,6 +8,9 @@ if (!isset($_GET['name'])) {
     exit();
 }
 $user = $_GET['name'];
+if (!isValidUser($user)) {
+    die('Invalid user');
+}
 
 $res = $db->query(
     'SELECT entries.*'

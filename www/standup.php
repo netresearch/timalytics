@@ -16,6 +16,9 @@ foreach ($res as $row) {
     if (isset($GLOBALS['inactive-users'][$row['username']])) {
         continue;
     }
+    if (!isValidUser($row['username'])) {
+        continue;
+    }
     $arTeams[$row['teamname']][] = array(
         'userid'     => $row['userid'],
         'name'       => $row['username'],

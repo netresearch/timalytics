@@ -21,7 +21,8 @@ $GLOBALS['cfg']['TT_DB_PASS'] = '';
 $GLOBALS['cfg']['TT_DB_USER'] = 'timetracker';
 $GLOBALS['cfg']['TT_DB_NAME'] = 'timetracker';
 
-$GLOBALS['cfg']['arIpUser'] = array();
+$GLOBALS['cfg']['arAllowedUsers']  = array();
+$GLOBALS['cfg']['arIpUser']        = array();
 $GLOBALS['cfg']['arInactiveUsers'] = array();
 
 $GLOBALS['cfg']['URL_TIMETRACKER'] = 'https://github.com/netresearch/timetracker';

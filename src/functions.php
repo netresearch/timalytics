@@ -67,7 +67,9 @@ function getActiveUsers(PDO $db)
 
     $arUsers = array();
     foreach ($res as $row) {
-        $arUsers[$row['username']] = getPrettyName($row['username']);
+        if (isValidUser($row['username'])) {
+            $arUsers[$row['username']] = getPrettyName($row['username']);
+        }
     }
 
     return $arUsers;
@@ -99,7 +101,21 @@ function loadUsername()
         $user = $_REQUEST['user'] = $_GET['user'] = getUserByIp();
     }
 
+    if (!isValidUser($user)) {
+        die('Invalid user');
+        return null;
+    }
     return $user;
+}
+
+function isValidUser($user)
+{
+    if (count($GLOBALS['cfg']['arAllowedUsers'])
+        && false === array_search($user, $GLOBALS['cfg']['arAllowedUsers'])
+    ) {
+        return false;
+    }
+    return true;
 }
 
 
@@ -115,7 +131,8 @@ function getUserByIp()
         $user = $GLOBALS['cfg']['arIpUser'][$ip];
     } else {
         $arUsers = getActiveUsers($GLOBALS['db']);
-        $user = reset($arUsers);
+        reset($arUsers);
+        $user = key($arUsers);
     }
 
     return $user;
