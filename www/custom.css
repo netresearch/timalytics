@@ -40,3 +40,9 @@ a:target#navigation,
 :target#navigation {
     display: none;
 }
+
+.nodata {
+    background-color: #777;
+    background-image: linear-gradient(to bottom,#888 0,#777 100%);
+    color: white;
+}

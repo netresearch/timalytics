@@ -71,11 +71,16 @@ $high = min(12, $max_work);
 foreach ($days as $day) {
     $class = '';
     if ($day['future']) {
-    } else if ($day['worked'] > (1.12 * $day['required'])) {
-        $class = 'alert-warning';
-    } else if ($day['required'] < $day['worked']) {
+    } else if ($day['worked'] == 0) {
+        $class = 'nodata';
+    } else if ($day['worked'] >= $day['required'] * 1
+        && $day['worked'] <= $day['required'] * 1.12
+    ) {
         $class = 'alert-success';
-    } else if ($day['required'] == $day['worked']) {
+    } else if ($day['worked'] > $day['required'] * 0.5
+        && $day['worked'] < $day['required'] * 1
+    ) {
+        $class = 'alert-warning';
     } else {
         $class = 'alert-danger';
     }
