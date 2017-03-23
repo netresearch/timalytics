@@ -37,6 +37,7 @@ foreach ($res as $arRow) {
         || $arRow['activity_name'] == 'Standup'
         || $arRow['description'] == 'Tägl Standup Support/Projekt Team'
         || $arRow['description'] == 'StandUps'
+        || $arRow['description'] == 'Stehung'
     ) {
         ++$nStandups;
         continue;
