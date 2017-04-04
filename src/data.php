@@ -170,14 +170,14 @@ for ($n = 1; $n <= $monthdays; $n++) {
         'holiday'  => isset($holidays[$date]),
         'future'   => $date > $today,
     );
-    if ($days[$date]['dow'] >= 6 || $days[$date]['holiday']) {
+    if ($days[$date]['holiday']) {
         $days[$date]['required'] = 0;
+    }
+    if ($days[$date]['required'] == 0) {
         if ($days[$date]['holiday']) {
             $days[$date]['name'] = $holidays[$date];
-        } else if ($days[$date]['dow'] == 6) {
-            $days[$date]['name'] = 'Sonnabend';
-        } else if ($days[$date]['dow'] == 7) {
-            $days[$date]['name'] = 'Sonntag';
+        } else {
+            $days[$date]['name'] = strftime('%A', $ts);
         }
         $days[$date]['holiday'] = true;
     }

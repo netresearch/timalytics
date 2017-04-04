@@ -85,7 +85,7 @@ foreach ($days as $day) {
         $class = 'alert-danger';
     }
     $mainclass = '';
-    if ($day['dow'] >= 6 || $day['holiday']) {
+    if ($day['required'] == 0 || $day['holiday']) {
         $mainclass = 'muted';
     }
     if ($day['dow'] == 7) {
@@ -97,7 +97,7 @@ foreach ($days as $day) {
 
     echo "<tr class='$mainclass'>"
         . '<td><nobr>' . $day['date'] . '</nobr></td>';
-    if ($day['holiday'] && $day['worked'] == 0.0) {
+    if (($day['holiday'] || $day['required'] == 0) && $day['worked'] == 0.0) {
         echo '<td colspan="4">' . $day['name'] . '</td>';
     } else {
         echo '<td class="r">' . $day['required'] . '</td>'
