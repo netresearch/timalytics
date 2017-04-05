@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../src/db.php';
 
 $dbTools = new PDO(
@@ -43,13 +42,26 @@ if (isset($_GET['hoursPerDay'])) {
         . ' AND (uc_start IS NULL OR uc_start <= "' . $year . '-' . $month . '-01")'
         . ' AND (uc_end IS NULL OR uc_end >= "' . $year . '-' . $month . '-01")'
     )->fetchObject();
+
+    for ($i=1; $i<=7; $i++) {
+        $arWorkWeek[$i] = 8;
+    }
+
     if ($contractRow !== false) {
         $workWeek = $contractRow->uc_hours_1 + $contractRow->uc_hours_2
             + $contractRow->uc_hours_3 + $contractRow->uc_hours_4
             + $contractRow->uc_hours_5;
         $hoursPerDay = $workWeek / 5;
+        $arWorkWeek[1] = $contractRow->uc_hours_1;
+        $arWorkWeek[2] = $contractRow->uc_hours_2;
+        $arWorkWeek[3] = $contractRow->uc_hours_3;
+        $arWorkWeek[4] = $contractRow->uc_hours_4;
+        $arWorkWeek[5] = $contractRow->uc_hours_5;
+        $arWorkWeek[6] = $contractRow->uc_hours_6;
+        $arWorkWeek[0] = $contractRow->uc_hours_0;
     }
 }
+
 if (isset($_GET['pretty'])) {
     $pretty = (bool) filter_var($_GET['pretty'], FILTER_SANITIZE_NUMBER_INT);
 }
@@ -129,10 +141,11 @@ $thisMonth = substr($today, 0, 7) == $year . '-' . $month;
 for ($n = 1; $n <= $monthdays; $n++) {
     $ts   = mktime(0, 0, 0, $month, $n, $year);
     $date = date('Y-m-d', $ts);
+    $weekDay = date('N', $ts);
     $days[$date] = array(
         'date'     => $date,
         'dow'      => (int) date('N', $ts),
-        'required' => $hoursPerDay,
+        'required' => $arWorkWeek[$weekDay],
         'worked'   => 0.0,
         'holiday'  => isset($holidays[$date]),
         'future'   => $date > $today,
