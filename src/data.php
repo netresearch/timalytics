@@ -165,7 +165,7 @@ for ($n = 1; $n <= $monthdays; $n++) {
     $days[$date] = array(
         'date'     => $date,
         'dow'      => (int) date('N', $ts),
-        'required' => $arWorkWeek[$weekDay],
+        'required' => $arWorkWeek[($weekDay == 7 ? 0 : $weekDay)],
         'worked'   => 0.0,
         'holiday'  => isset($holidays[$date]),
         'future'   => $date > $today,
