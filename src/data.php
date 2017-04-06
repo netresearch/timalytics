@@ -43,9 +43,12 @@ if (isset($_GET['hoursPerDay'])) {
         . ' AND (uc_end IS NULL OR uc_end >= "' . $year . '-' . $month . '-01")'
     )->fetchObject();
 
-    for ($i=1; $i<=7; $i++) {
-        $arWorkWeek[$i] = 8;
+    for ($weekOfDay = 1; $weekOfDay <= 5; $weekOfDay++) {
+        // current hard coded default work hours per day of 8
+        $arWorkWeek[$weekOfDay] = 8;
     }
+    $arWorkWeek[0] = 0;
+    $arWorkWeek[6] = 0;
 
     if ($contractRow !== false) {
         $workWeek = $contractRow->uc_hours_1 + $contractRow->uc_hours_2
