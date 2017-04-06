@@ -1,15 +1,29 @@
 version: '2'
 services:
   web:
-    image: php:7-alpine
+    image: nginx:alpine
+    depends_on:
+      - php
+    ports:
+      - 8888:80
+    links:
+      - php:php
+    volumes:
+      - ./:/srv/www/timalytics
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+#    volumes_from:
+#      - php:ro
+    environment:
+      - VIRTUAL_HOST=timalytics.localhost
+
+  php:
+    image: php:7-fpm-alpine
     depends_on:
       - db
     volumes:
-      - ./:/var/www
-    ports:
-      - 8888:8888
+      - ./:/srv/www/timalytics
     command:
-      /bin/sh -c "set -ex; docker-php-ext-install pdo_mysql calendar; php -S 0.0.0.0:8888 -t /var/www/www"
+        /bin/sh -c "set -ex; docker-php-ext-install pdo_mysql calendar; php-fpm"
     links:
       - db:db
 
@@ -28,6 +42,6 @@ services:
     depends_on:
       - db
     ports:
-      - 8080:80
+      - 8889:80
     links:
       - db:db
