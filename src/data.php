@@ -44,8 +44,7 @@ if (isset($_GET['hoursPerDay'])) {
     )->fetchObject();
 
     for ($weekOfDay = 1; $weekOfDay <= 5; $weekOfDay++) {
-        // current hard coded default work hours per day of 8
-        $arWorkWeek[$weekOfDay] = 8;
+        $arWorkWeek[$weekOfDay] = $hoursPerDay;
     }
     $arWorkWeek[0] = 0;
     $arWorkWeek[6] = 0;
@@ -54,7 +53,6 @@ if (isset($_GET['hoursPerDay'])) {
         $workWeek = $contractRow->uc_hours_1 + $contractRow->uc_hours_2
             + $contractRow->uc_hours_3 + $contractRow->uc_hours_4
             + $contractRow->uc_hours_5;
-        $hoursPerDay = $workWeek / 5;
         $arWorkWeek[1] = $contractRow->uc_hours_1;
         $arWorkWeek[2] = $contractRow->uc_hours_2;
         $arWorkWeek[3] = $contractRow->uc_hours_3;
