@@ -28,6 +28,8 @@ foreach ($files as $file) {
     }
 }
 
+ksort($arEvents);
+
 $file = __DIR__ . '/../data/feiertage.php';
 file_put_contents(
     $file,
