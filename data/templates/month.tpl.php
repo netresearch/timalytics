@@ -181,7 +181,7 @@ if ($thisMonth) {
             <a href="https://github.com/netresearch/timalytics">timalytics</a>.
         </p>
 
-<?php if ($pmRowThisMonth === false && $plusminusHours !== null && date('m') != $month) { ?>
+<?php if ($pmRowThisMonth === false && $plusminusHours !== null && (date('m') != $month || date('Y') != $year)) { ?>
         <br/>
         <br/>
         <h4>Stundenmeldung</h4>
