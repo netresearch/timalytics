@@ -24,7 +24,7 @@
         <div class="panel-heading">{{project.name}} / {{project.allcustomers}} ({{project.activities|join(', ')}})</div>
         <ul class="list-group entries">
             {% for entry in project.entries %}
-            <li class="list-group-item">
+            <li class="list-group-item mood-{{entry.mood}}">
                 <strong>
                     {% if entry.ticket %}
                     <a href="{{ cfg.URL_BUGTRACKER }}{{entry.ticket}}">{{entry.ticket}}</a>
