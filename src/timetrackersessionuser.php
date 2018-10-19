@@ -5,6 +5,8 @@
  * require this file in your config.php
  */
 
+require_once __DIR__ . '/../src/db.php';
+
 if (!isset($_COOKIE['PHPSESSID'])) {
     //no session id cookie
     die('Not logged into timetacker (no session id)');
@@ -26,7 +28,22 @@ if (!isset($_SESSION['_sf2_attributes']['loggedIn'])
     die('Not logged into timetacker (no valid session data)');
 }
 
-$GLOBALS['cfg']['arAllowedUsers'] = [
-    $_SESSION['_sf2_attributes']['loginUsername']
-];
+$teamMembers = $db->query(
+    'SELECT DISTINCT members.username
+    FROM users, teams, teams_users, users AS members
+    WHERE users.id = teams.lead_user_id
+     AND users.username = ' . $db->quote($_SESSION['_sf2_attributes']['loginUsername']) . '
+     AND users.type = "PL"
+     AND teams.id = teams_users.team_id
+     AND teams_users.user_id = members.id
+    ORDER BY members.username'
+)->fetchAll();
+
+if (empty($teamMembers)) {
+    $GLOBALS['cfg']['arAllowedUsers'] = [
+        $_SESSION['_sf2_attributes']['loginUsername']
+    ];
+} else {
+    $GLOBALS['cfg']['arAllowedUsers'] = array_column($teamMembers, "username");
+}
 ?>
