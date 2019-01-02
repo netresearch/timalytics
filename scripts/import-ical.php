@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 $files = glob(__DIR__ . '/../data/*.ics');
 
@@ -34,8 +35,8 @@ $file = __DIR__ . '/../data/feiertage.php';
 file_put_contents(
     $file,
     '<?php return '
-    . var_export($arEvents, true)
-    . " ?>\n"
+    . var_export($arEvents, true) . ";\n"
+    . "?>\n"
 );
 echo count($arEvents) . ' Feiertage nach ' . $file . " generiert\n";
 ?>

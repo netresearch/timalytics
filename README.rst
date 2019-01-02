@@ -91,3 +91,13 @@ Mood
 Am Ende der Beschreibung ein ``#c``, ``#l``, oder ``#s`` (cool, so lala, sucks)
 schreiben.
 Dann wird die Zeile entsprechend eingefärbt.
+
+
+Feiertage
+=========
+Aktualisierung der Feiertagsdatei:
+
+#. Download der aktuellen .ics-Datei von
+   https://www.schulferien.org/deutschland/ical/ nach ``data/``
+#. ``./scripts/import-ical.php``
+#. ``data/`` committen
