@@ -76,4 +76,16 @@
   '2018-11-21' => 'Buß- und Bettag',
   '2018-12-25' => '1. Weihnachtsfeiertag',
   '2018-12-26' => '2. Weihnachtsfeiertag',
-) ?>
+  '2019-01-01' => 'Neujahr',
+  '2019-04-19' => 'Karfreitag',
+  '2019-04-22' => 'Ostermontag',
+  '2019-05-01' => 'Tag der Arbeit',
+  '2019-05-30' => 'Christi Himmelfahrt',
+  '2019-06-10' => 'Pfingstmontag',
+  '2019-10-03' => 'Tag der Deutschen Einheit',
+  '2019-10-31' => 'Reformationstag',
+  '2019-11-20' => 'Buß- und Bettag',
+  '2019-12-25' => '1. Weihnachtsfeiertag',
+  '2019-12-26' => '2. Weihnachtsfeiertag',
+);
+?>
