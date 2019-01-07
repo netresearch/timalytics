@@ -86,6 +86,7 @@ if (++$nextMonth == 13) {
 $urlThis = '?month=' . $month . '&year=' . $year . '&user=' . $user;
 $urlPrev = '?month=' . $prevMonth . '&year=' . $prevYear . '&user=' . $user;
 $urlNext = '?month=' . $nextMonth . '&year=' . $nextYear . '&user=' . $user;
+$urlToday = '?month=' . date('m') . '&year=' . date('Y') . '&user=' . $user;
 
 $pmRow = $dbTools->query(
     'SELECT pm_minutes_absolute FROM plusminus'

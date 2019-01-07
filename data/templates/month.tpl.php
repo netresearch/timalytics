@@ -163,7 +163,9 @@ if ($thisMonth) {
 
         <p style="text-align: center; width:100%">
             <a href="<?php echo htmlspecialchars($urlPrev); ?>">&lt;&lt; zurück</a>
-            &nbsp;&nbsp;Monat&nbsp;&nbsp;
+            &nbsp;&nbsp;
+            <a href="<?php echo htmlspecialchars($urlToday) ?>">heute</a>
+            &nbsp;&nbsp;
             <a href="<?php echo htmlspecialchars($urlNext); ?>">vor &gt;&gt;</a>
         </p>
 
