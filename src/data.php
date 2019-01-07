@@ -117,28 +117,27 @@ if ($pmRow) {
     }
 }
 
-if (isset($_POST['report']) && isset($_POST['minutes'])) {
-    $minutes = (int) $_POST['minutes'];
-    $dbTools->query(
-        'INSERT INTO plusminus'
-        . '(pm_username, pm_year, pm_month, pm_minutes, pm_minutes_absolute)'
-        . ' VALUES'
-        . '('
-        . $dbTools->quote($user)
-        . ',' . $dbTools->quote($year)
-        . ',' . $dbTools->quote($month)
-        . ',' . $dbTools->quote($minutes)
-        . ',' . $dbTools->quote($pmRow->pm_minutes_absolute + $minutes)
-        . ')'
-    );
+$pmRowThisMonth = $dbTools->query(
+    'SELECT pm_minutes, pm_minutes_absolute FROM plusminus'
+    . ' WHERE pm_username = ' . $dbTools->quote($user)
+    . ' AND pm_year = ' . (int) $year
+    . ' AND pm_month = ' . (int) $month
+)->fetchObject();
+$plusminusHoursThisMonth = null;
+if ($pmRowThisMonth) {
+    $plusminusHoursThisMonth = $pmRowThisMonth->pm_minutes_absolute / 60;
 }
 
-$pmRowThisMonth = $dbTools->query(
+$pmRowNextMonth = $dbTools->query(
     'SELECT pm_minutes_absolute FROM plusminus'
     . ' WHERE pm_username = ' . $dbTools->quote($user)
-    . ' AND pm_year = ' . (int)$year
-    . ' AND pm_month = ' . (int)$month
+    . ' AND pm_year = ' . (int) $nextYear
+    . ' AND pm_month = ' . (int) $nextMonth
 )->fetchObject();
+$plusminusHoursNextMonth = null;
+if ($pmRowNextMonth) {
+    $plusminusHoursNextMonth = $pmRowNextMonth->pm_minutes_absolute / 60;
+}
 
 
 $stmt = $db->query(

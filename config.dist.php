@@ -25,6 +25,8 @@ $GLOBALS['cfg']['arAllowedUsers']  = array();
 $GLOBALS['cfg']['arIpUser']        = array();
 $GLOBALS['cfg']['arInactiveUsers'] = array();
 
+$GLOBALS['cfg']['allowDelete'] = false;
+
 $GLOBALS['cfg']['URL_TIMETRACKER'] = 'https://github.com/netresearch/timetracker';
 $GLOBALS['cfg']['URL_BOOTSTRAP_CSS'] = 'css/bootstrap.min.css';
 $GLOBALS['cfg']['URL_BOOTSTRAP_THEME'] = 'css/bootstrap-theme.min.css';

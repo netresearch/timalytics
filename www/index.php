@@ -35,6 +35,8 @@ $strTitle = 'Monatsauswertung '
     . ucwords(str_replace('.', ' ', $user))
     . ' ' . $year . '-' . $month;
 
+include __DIR__ . '/../src/month.php';
+
 include __DIR__ . '/../data/templates/head.tpl.php';
 include __DIR__ . '/../data/templates/month.tpl.php';
 include __DIR__ . '/../data/templates/foot.tpl.php';
