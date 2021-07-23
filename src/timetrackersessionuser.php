@@ -39,11 +39,9 @@ $teamMembers = $db->query(
     ORDER BY members.username'
 )->fetchAll();
 
-if (empty($teamMembers)) {
-    $GLOBALS['cfg']['arAllowedUsers'] = [
-        $_SESSION['_sf2_attributes']['loginUsername']
-    ];
-} else {
+$GLOBALS['cfg']['arAllowedUsers'] = [];
+if (!empty($teamMembers)) {
     $GLOBALS['cfg']['arAllowedUsers'] = array_column($teamMembers, "username");
 }
+$GLOBALS['cfg']['arAllowedUsers'][] = $_SESSION['_sf2_attributes']['loginUsername'];
 ?>
