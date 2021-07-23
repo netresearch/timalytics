@@ -34,4 +34,9 @@ $GLOBALS['cfg']['URL_JQUERY_JS'] = 'js/jquery.min.js';
 $GLOBALS['cfg']['URL_BOOTSTRAP_JS'] = 'js/bootstrap.min.js';
 $GLOBALS['cfg']['URL_MASONRY_JS'] = 'js/masonry.pkgd.min.js';
 $GLOBALS['cfg']['URL_BUGTRACKER'] = 'https://bugs.nr/';
+
+// If timalytics is running in a subdirectory of the timetracker installation,
+// then enable the following line to restrict analatics access to the user
+// (and the team members if the user is a project leader PL):
+//require __DIR__ . '/src/timetrackersessionuser.php';
 ?>
