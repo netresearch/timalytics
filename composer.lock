@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "658108aefafb5ceedb936751f8678604",
-    "content-hash": "493d89f8f06eaecc8992a89077de0d83",
+    "content-hash": "48242eca9beda39d5540ef6734e36353",
     "packages": [
         {
             "name": "pear/image_color2",
@@ -48,7 +47,11 @@
                 }
             ],
             "description": "More info available on: http://pear.php.net/package/Image_Color2",
-            "time": "2014-02-20 19:23:48"
+            "support": {
+                "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Image_Color2",
+                "source": "https://github.com/pear/Image_Color2"
+            },
+            "time": "2014-02-20T19:23:48+00:00"
         },
         {
             "name": "pear/pear_exception",
@@ -103,7 +106,11 @@
             "keywords": [
                 "exception"
             ],
-            "time": "2015-02-10 20:07:52"
+            "support": {
+                "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=PEAR_Exception",
+                "source": "https://github.com/pear/PEAR_Exception"
+            },
+            "time": "2015-02-10T20:07:52+00:00"
         },
         {
             "name": "twig/twig",
@@ -164,7 +171,12 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-05-30 09:11:59"
+            "support": {
+                "forum": "https://groups.google.com/forum/#!forum/twig-users",
+                "issues": "https://github.com/twigphp/Twig/issues",
+                "source": "https://github.com/twigphp/Twig/tree/v1.24.1"
+            },
+            "time": "2016-05-30T09:11:59+00:00"
         }
     ],
     "packages-dev": [],
@@ -174,5 +186,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
