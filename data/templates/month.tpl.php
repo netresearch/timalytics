@@ -163,7 +163,9 @@ if ($thisMonth) {
 
         <p style="text-align: center; width:100%">
             <a href="<?php echo htmlspecialchars($urlPrev); ?>">&lt;&lt; zurück</a>
-            &nbsp;&nbsp;Monat&nbsp;&nbsp;
+            &nbsp;&nbsp;
+            <a href="<?php echo htmlspecialchars($urlToday) ?>">heute</a>
+            &nbsp;&nbsp;
             <a href="<?php echo htmlspecialchars($urlNext); ?>">vor &gt;&gt;</a>
         </p>
 
@@ -181,7 +183,7 @@ if ($thisMonth) {
             <a href="https://github.com/netresearch/timalytics">timalytics</a>.
         </p>
 
-<?php if ($pmRowThisMonth === false && $plusminusHours !== null && date('m') != $month) { ?>
+<?php if ($pmRowThisMonth === false && $plusminusHours !== null && (date('m') != $month || date('Y') != $year)) { ?>
         <br/>
         <br/>
         <h4>Stundenmeldung</h4>
@@ -198,6 +200,43 @@ if ($thisMonth) {
         <p>
 	   <?php echo round($monthDiff * 60); ?> Minuten sind <?php echo getPrettyWorkingTime($monthDiff, true); ?>.
         </p>
+<?php } ?>
+
+<?php if ($plusminusHoursThisMonth !== null) { ?>
+        <br/>
+        <br/>
+        <h4>Stundenmeldung</h4>
+        <table class="table">
+            <tr>
+                <td>gemeldete Plus/Minusstunden</td>
+                <td style="text-align: right">
+                    <?= getPrettyWorkingTime($pmRowThisMonth->pm_minutes / 60, true) ?>
+                </td>
+            </tr>
+            <tr>
+                <td>Endstand</td>
+                <td style="text-align: right">
+                    <?= getPrettyWorkingTime($plusminusHoursThisMonth, true) ?>
+                </td>
+            </tr>
+        </table>
+
+        <?php if ($GLOBALS['cfg']['allowDelete'] && $plusminusHoursNextMonth === null) { ?>
+            <hr/>
+            <p>
+                Falls der Eintrag fehlerhaft war, kann er hier gelöscht werden:
+            </p>
+            <form class="form-inline" method="post" action="<?php echo htmlspecialchars($urlThis); ?>">
+                <input name="delete" type="hidden" value="1"/>
+                <div class="checkbox">
+                    <label>
+                        <input name="really" type="checkbox" value="yes"/>
+                        Wirklich löschen
+                    </label>
+                </div>
+                <button type="submit" class="btn">Gemeldete Stunden löschen</button>
+            </form>
+        <?php } ?>
 <?php } ?>
 
         </div>

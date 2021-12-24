@@ -1,4 +1,5 @@
-.settings
-.idea
+/.settings
+/.idea
+/config.php
+/README.html
 /vendor
-config.php

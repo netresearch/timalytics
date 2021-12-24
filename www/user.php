@@ -8,6 +8,9 @@ if (!isset($_GET['name'])) {
     exit();
 }
 $user = $_GET['name'];
+if (!isValidUser($user)) {
+    die('Invalid user');
+}
 
 $res = $db->query(
     'SELECT entries.*'
@@ -122,7 +125,8 @@ echo $twig->render(
         'user'          => $user,
         'prettyname'    => getPrettyName($user),
         'arActiveUsers' => getActiveUsers($db),
-        'showStandup'   => $nShowStandup
+        'showStandup'   => $nShowStandup,
+        'cfg'           => $GLOBALS['cfg'],
     )
 );
 ?>

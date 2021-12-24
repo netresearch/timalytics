@@ -15,10 +15,10 @@ echo <<<HTML
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="custom.css" />
 HTML;
-echo '<link type="text/css" href="' . hs(\Netresearch\Timalytics\Config::URL_BOOTSTRAP_CSS) . '" rel="stylesheet">';
-echo '<link type="text/css" href="' . hs(\Netresearch\Timalytics\Config::URL_BOOTSTRAP_THEME) . '" rel="stylesheet">';
-echo '<script type="text/javascript" src="' . hs(\Netresearch\Timalytics\Config::URL_JQUERY_JS) . '"></script>';
-echo '<script type="text/javascript" src="' . hs(\Netresearch\Timalytics\Config::URL_BOOTSTRAP_JS) . '"></script>';
+echo '<link type="text/css" href="' . hs($GLOBALS['cfg']['URL_BOOTSTRAP_CSS']) . '" rel="stylesheet">';
+echo '<link type="text/css" href="' . hs($GLOBALS['cfg']['URL_BOOTSTRAP_THEME']) . '" rel="stylesheet">';
+echo '<script type="text/javascript" src="' . hs($GLOBALS['cfg']['URL_JQUERY_JS']) . '"></script>';
+echo '<script type="text/javascript" src="' . hs($GLOBALS['cfg']['URL_BOOTSTRAP_JS']) . '"></script>';
 echo <<<HTML
  </head>
  <body>

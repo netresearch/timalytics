@@ -2,7 +2,7 @@
 
 {%block header%}
 <title>Standuptool: {{prettyname}}</title>
-<script src="{{ constant('Netresearch\\Timalytics\\Config::URL_MASONRY_JS') }}"></script>
+<script src="{{ cfg.URL_MASONRY_JS }}"></script>
 {%endblock%}
 
 
@@ -24,10 +24,10 @@
         <div class="panel-heading">{{project.name}} / {{project.allcustomers}} ({{project.activities|join(', ')}})</div>
         <ul class="list-group entries">
             {% for entry in project.entries %}
-            <li class="list-group-item">
+            <li class="list-group-item mood-{{entry.mood}}">
                 <strong>
                     {% if entry.ticket %}
-                    <a href="{{ constant('Netresearch\\Timalytics\\Config::URL_BUGTRACKER') }}{{entry.ticket}}">{{entry.ticket}}</a>
+                    <a href="{{ cfg.URL_BUGTRACKER }}{{entry.ticket}}">{{entry.ticket}}</a>
                     {%endif%}
                 </strong>
 

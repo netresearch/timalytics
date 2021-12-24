@@ -2,9 +2,9 @@
 require_once __DIR__ . '/../src/db.php';
 
 $dbTools = new PDO(
-    'mysql:host=' . Netresearch\Timalytics\Config::DB_HOST . ';dbname=' . Netresearch\Timalytics\Config::DB_NAME,
-    Netresearch\Timalytics\Config::DB_USER,
-    Netresearch\Timalytics\Config::DB_PASS,
+    'mysql:host=' . $GLOBALS['cfg']['DB_HOST'] . ';dbname=' . $GLOBALS['cfg']['DB_NAME'],
+    $GLOBALS['cfg']['DB_USER'],
+    $GLOBALS['cfg']['DB_PASS'],
     array(
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET names utf8',
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -37,11 +37,12 @@ if (isset($_GET['hoursPerDay'])) {
         FILTER_FLAG_ALLOW_FRACTION
     );
 } else {
-    $contractRow = $dbTools->query(
-        $s='SELECT * FROM users_contracts'
-        . ' WHERE uc_username = ' . $dbTools->quote($user)
-        . ' AND (uc_start IS NULL OR uc_start <= "' . $year . '-' . $month . '-01")'
-        . ' AND (uc_end IS NULL OR uc_end >= "' . $year . '-' . $month . '-01")'
+    $contractRow = $db->query(
+        $s='SELECT * FROM contracts'
+        . ' JOIN users ON (users.id = contracts.user_id)'
+        . ' WHERE users.username = ' . $dbTools->quote($user)
+        . ' AND (start IS NULL OR start <= "' . $year . '-' . $month . '-01")'
+        . ' AND (end IS NULL OR end >= "' . $year . '-' . $month . '-01")'
     )->fetchObject();
 
     for ($weekOfDay = 1; $weekOfDay <= 5; $weekOfDay++) {
@@ -51,16 +52,16 @@ if (isset($_GET['hoursPerDay'])) {
     $arWorkWeek[6] = 0;
 
     if ($contractRow !== false) {
-        $workWeek = $contractRow->uc_hours_1 + $contractRow->uc_hours_2
-            + $contractRow->uc_hours_3 + $contractRow->uc_hours_4
-            + $contractRow->uc_hours_5;
-        $arWorkWeek[1] = $contractRow->uc_hours_1;
-        $arWorkWeek[2] = $contractRow->uc_hours_2;
-        $arWorkWeek[3] = $contractRow->uc_hours_3;
-        $arWorkWeek[4] = $contractRow->uc_hours_4;
-        $arWorkWeek[5] = $contractRow->uc_hours_5;
-        $arWorkWeek[6] = $contractRow->uc_hours_6;
-        $arWorkWeek[0] = $contractRow->uc_hours_0;
+        $workWeek = $contractRow->hours_1 + $contractRow->hours_2
+            + $contractRow->hours_3 + $contractRow->hours_4
+            + $contractRow->hours_5;
+        $arWorkWeek[1] = $contractRow->hours_1;
+        $arWorkWeek[2] = $contractRow->hours_2;
+        $arWorkWeek[3] = $contractRow->hours_3;
+        $arWorkWeek[4] = $contractRow->hours_4;
+        $arWorkWeek[5] = $contractRow->hours_5;
+        $arWorkWeek[6] = $contractRow->hours_6;
+        $arWorkWeek[0] = $contractRow->hours_0;
     }
 }
 
@@ -85,6 +86,7 @@ if (++$nextMonth == 13) {
 $urlThis = '?month=' . $month . '&year=' . $year . '&user=' . $user;
 $urlPrev = '?month=' . $prevMonth . '&year=' . $prevYear . '&user=' . $user;
 $urlNext = '?month=' . $nextMonth . '&year=' . $nextYear . '&user=' . $user;
+$urlToday = '?month=' . date('m') . '&year=' . date('Y') . '&user=' . $user;
 
 $pmRow = $dbTools->query(
     'SELECT pm_minutes_absolute FROM plusminus'
@@ -115,28 +117,27 @@ if ($pmRow) {
     }
 }
 
-if (isset($_POST['report']) && isset($_POST['minutes'])) {
-    $minutes = (int) $_POST['minutes'];
-    $dbTools->query(
-        'INSERT INTO plusminus'
-        . '(pm_username, pm_year, pm_month, pm_minutes, pm_minutes_absolute)'
-        . ' VALUES'
-        . '('
-        . $dbTools->quote($user)
-        . ',' . $dbTools->quote($year)
-        . ',' . $dbTools->quote($month)
-        . ',' . $dbTools->quote($minutes)
-        . ',' . $dbTools->quote($pmRow->pm_minutes_absolute + $minutes)
-        . ')'
-    );
+$pmRowThisMonth = $dbTools->query(
+    'SELECT pm_minutes, pm_minutes_absolute FROM plusminus'
+    . ' WHERE pm_username = ' . $dbTools->quote($user)
+    . ' AND pm_year = ' . (int) $year
+    . ' AND pm_month = ' . (int) $month
+)->fetchObject();
+$plusminusHoursThisMonth = null;
+if ($pmRowThisMonth) {
+    $plusminusHoursThisMonth = $pmRowThisMonth->pm_minutes_absolute / 60;
 }
 
-$pmRowThisMonth = $dbTools->query(
+$pmRowNextMonth = $dbTools->query(
     'SELECT pm_minutes_absolute FROM plusminus'
     . ' WHERE pm_username = ' . $dbTools->quote($user)
-    . ' AND pm_year = ' . (int)$year
-    . ' AND pm_month = ' . (int)$month
+    . ' AND pm_year = ' . (int) $nextYear
+    . ' AND pm_month = ' . (int) $nextMonth
 )->fetchObject();
+$plusminusHoursNextMonth = null;
+if ($pmRowNextMonth) {
+    $plusminusHoursNextMonth = $pmRowNextMonth->pm_minutes_absolute / 60;
+}
 
 
 $stmt = $db->query(

@@ -60,14 +60,16 @@ function getActiveUsers(PDO $db)
     $res = $db->query(
         'SELECT users.username as username, users.id as userid'
         . ' FROM users'
-        . ' WHERE username NOT IN ("' . implode('", "', array_keys(Netresearch\Timalytics\Config::$arInactiveUsers)) . '")'
+        . ' WHERE username NOT IN ("' . implode('", "', array_keys($GLOBALS['cfg']['arInactiveUsers'])) . '")'
         . ' ORDER BY username',
         PDO::FETCH_ASSOC
     );
 
     $arUsers = array();
     foreach ($res as $row) {
-        $arUsers[$row['username']] = getPrettyName($row['username']);
+        if (isValidUser($row['username'])) {
+            $arUsers[$row['username']] = getPrettyName($row['username']);
+        }
     }
 
     return $arUsers;
@@ -99,7 +101,21 @@ function loadUsername()
         $user = $_REQUEST['user'] = $_GET['user'] = getUserByIp();
     }
 
+    if (!isValidUser($user)) {
+        die('Invalid user');
+        return null;
+    }
     return $user;
+}
+
+function isValidUser($user)
+{
+    if (count($GLOBALS['cfg']['arAllowedUsers'])
+        && false === array_search($user, $GLOBALS['cfg']['arAllowedUsers'])
+    ) {
+        return false;
+    }
+    return true;
 }
 
 
@@ -111,11 +127,12 @@ function loadUsername()
 function getUserByIp()
 {
     $ip = $_SERVER['REMOTE_ADDR'];
-    if (isset(\Netresearch\Timalytics\Config::$arIpUser[$ip])) {
-        $user = \Netresearch\Timalytics\Config::$arIpUser[$ip];
+    if (isset($GLOBALS['cfg']['arIpUser'][$ip])) {
+        $user = $GLOBALS['cfg']['arIpUser'][$ip];
     } else {
         $arUsers = getActiveUsers($GLOBALS['db']);
-        $user = reset($arUsers);
+        reset($arUsers);
+        $user = key($arUsers);
     }
 
     return $user;
