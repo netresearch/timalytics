@@ -171,6 +171,12 @@ for ($n = 1; $n <= $monthdays; $n++) {
         'holiday'  => isset($holidays[$date]),
         'future'   => $date > $today,
     );
+    // set required worktime for christmas and new year eve to halve the normal time
+    if ($GLOBALS['cfg']['HALF_DAY_POLICY']
+        && (date('m-d', $ts) == '12-24' || date('m-d', $ts) == '12-31')
+    ) {
+        $days[$date]['required'] = $arWorkWeek[($weekDay == 7 ? 0 : $weekDay)] / 2;
+    }
     if ($days[$date]['holiday']) {
         $days[$date]['required'] = 0;
     }
