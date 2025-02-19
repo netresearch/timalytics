@@ -17,7 +17,7 @@ services:
       - VIRTUAL_HOST=timalytics.localhost
 
   php:
-    image: php:7-fpm-alpine
+    image: php:8-fpm-alpine
     depends_on:
       - db
     volumes:
