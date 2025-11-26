@@ -36,33 +36,46 @@ if (isset($_GET['hoursPerDay'])) {
         FILTER_SANITIZE_NUMBER_FLOAT,
         FILTER_FLAG_ALLOW_FRACTION
     );
+    for ($weekOfDay = 1; $weekOfDay <= 5; $weekOfDay++) {
+        $defaultWorkWeek[$weekOfDay] = $hoursPerDay;
+    }
+    $defaultWorkWeek[0] = 0;
+    $defaultWorkWeek[6] = 0;
 } else {
-    $contractRow = $db->query(
-        $s='SELECT * FROM contracts'
+    $monthStart = $year . '-' . $month . '-01';
+    $monthEnd = date('Y-m-t', strtotime($monthStart));
+
+    $contractStmt = $db->query(
+        'SELECT contracts.*, contracts.start as contract_start, contracts.end as contract_end FROM contracts'
         . ' JOIN users ON (users.id = contracts.user_id)'
         . ' WHERE users.username = ' . $dbTools->quote($user)
-        . ' AND (start IS NULL OR start <= "' . $year . '-' . $month . '-01")'
-        . ' AND (end IS NULL OR end >= "' . $year . '-' . $month . '-01")'
-    )->fetchObject();
+        . ' AND (contracts.start IS NULL OR contracts.start <= "' . $monthEnd . '")'
+        . ' AND (contracts.end IS NULL OR contracts.end >= "' . $monthStart . '")'
+        . ' ORDER BY contracts.start ASC'
+    );
+
+    $arContracts = [];
+    foreach ($contractStmt as $row) {
+        $arContracts[] = [
+            'start' => $row['contract_start'],
+            'end' => $row['contract_end'],
+            'hours' => [
+                0 => (float) $row['hours_0'],
+                1 => (float) $row['hours_1'],
+                2 => (float) $row['hours_2'],
+                3 => (float) $row['hours_3'],
+                4 => (float) $row['hours_4'],
+                5 => (float) $row['hours_5'],
+                6 => (float) $row['hours_6'],
+            ]
+        ];
+    }
 
     for ($weekOfDay = 1; $weekOfDay <= 5; $weekOfDay++) {
-        $arWorkWeek[$weekOfDay] = $hoursPerDay;
+        $defaultWorkWeek[$weekOfDay] = $hoursPerDay;
     }
-    $arWorkWeek[0] = 0;
-    $arWorkWeek[6] = 0;
-
-    if ($contractRow !== false) {
-        $workWeek = $contractRow->hours_1 + $contractRow->hours_2
-            + $contractRow->hours_3 + $contractRow->hours_4
-            + $contractRow->hours_5;
-        $arWorkWeek[1] = $contractRow->hours_1;
-        $arWorkWeek[2] = $contractRow->hours_2;
-        $arWorkWeek[3] = $contractRow->hours_3;
-        $arWorkWeek[4] = $contractRow->hours_4;
-        $arWorkWeek[5] = $contractRow->hours_5;
-        $arWorkWeek[6] = $contractRow->hours_6;
-        $arWorkWeek[0] = $contractRow->hours_0;
-    }
+    $defaultWorkWeek[0] = 0;
+    $defaultWorkWeek[6] = 0;
 }
 
 if (isset($_GET['pretty'])) {
@@ -149,6 +162,37 @@ $stmt = $db->query(
 );
 $holidays = require __DIR__ . '/../data/feiertage.php';
 
+/**
+ * Get working hours for a specific date based on active contracts
+ *
+ * @param string $date Date in Y-m-d format
+ * @param int $weekDay Day of week (1=Monday, ..., 7=Sunday, from date('N'))
+ * @param array $arContracts Array of contracts with start, end, and hours
+ * @param array $defaultWorkWeek Default work week hours if no contract matches
+ * @return float Hours required for this day
+ */
+function getContractHoursForDate(string $date, int $weekDay, array $arContracts, array $defaultWorkWeek) {
+    $dayIndex = ($weekDay == 7) ? 0 : $weekDay;
+
+    if (empty($arContracts)) {
+        return $defaultWorkWeek[$dayIndex];
+    }
+
+    foreach ($arContracts as $contract) {
+        $contractStart = $contract['start'];
+        $contractEnd = $contract['end'];
+
+        $startValid = ($contractStart === null || $contractStart <= $date);
+        $endValid = ($contractEnd === null || $contractEnd >= $date);
+
+        if ($startValid && $endValid) {
+            return $contract['hours'][$dayIndex];
+        }
+    }
+
+    return $defaultWorkWeek[$dayIndex];
+}
+
 $days = array();
 $monthdays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 $sumRequired = 0.0;
@@ -162,11 +206,14 @@ $thisMonth = substr($today, 0, 7) == $year . '-' . $month;
 for ($n = 1; $n <= $monthdays; $n++) {
     $ts   = mktime(0, 0, 0, $month, $n, $year);
     $date = date('Y-m-d', $ts);
-    $weekDay = date('N', $ts);
+    $weekDay = (int) date('N', $ts);
+
+    $requiredHours = getContractHoursForDate($date, $weekDay, $arContracts, $defaultWorkWeek);
+
     $days[$date] = array(
         'date'     => $date,
-        'dow'      => (int) date('N', $ts),
-        'required' => $arWorkWeek[($weekDay == 7 ? 0 : $weekDay)],
+        'dow'      => $weekDay,
+        'required' => $requiredHours,
         'worked'   => 0.0,
         'holiday'  => isset($holidays[$date]),
         'future'   => $date > $today,
@@ -175,7 +222,7 @@ for ($n = 1; $n <= $monthdays; $n++) {
     if ($GLOBALS['cfg']['HALF_DAY_POLICY']
         && (date('m-d', $ts) == '12-24' || date('m-d', $ts) == '12-31')
     ) {
-        $days[$date]['required'] = $arWorkWeek[($weekDay == 7 ? 0 : $weekDay)] / 2;
+        $days[$date]['required'] = $requiredHours / 2;
     }
     if ($days[$date]['holiday']) {
         $days[$date]['required'] = 0;
