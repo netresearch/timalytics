@@ -7,7 +7,7 @@
  * @category   Netresearch
  * @package    Timalytics
  * @subpackage Config
- * @author     Various Artists <info@netresearch.de>
+ * @author     Various Artists
  * @license    http://www.gnu.org/licenses/agpl-3.0.html GNU AGPl 3
  * @link       http://www.netresearch.de
  */
