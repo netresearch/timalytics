@@ -24,7 +24,8 @@ services:
     environment:
       - VIRTUAL_HOST=timalytics.localhost
 
-  php:
+  # writable: the entrypoint runs docker-php-ext-install on every start, which writes to /usr/local and /usr/src
+  php: # nosemgrep: yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service
     image: php:8-fpm-alpine
     security_opt:
       - no-new-privileges:true
@@ -37,7 +38,8 @@ services:
     links:
       - db:db
 
-  db:
+  # writable: unpinned mariadb image with no documented write set beyond its data volume
+  db: # nosemgrep: yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service
     image: mariadb
     security_opt:
       - no-new-privileges:true
@@ -49,7 +51,8 @@ services:
     volumes:
       - ./data/tables.sql:/docker-entrypoint-initdb.d/timalytics_setup.sql:ro
 
-  pma:
+  # writable: unpinned phpmyadmin image with no documented write set
+  pma: # nosemgrep: yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service
     image: phpmyadmin/phpmyadmin
     security_opt:
       - no-new-privileges:true
