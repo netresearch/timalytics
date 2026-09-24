@@ -1,0 +1,6 @@
+# www/js/fullcalendar-2.2.6/demos/gcal.html (deleted in 06f58d0) is the demo
+# page shipped by the FullCalendar project, byte-identical to
+# fullcalendar-2.2.6/demos/gcal.html in the official v2.2.6 release zip.
+# The gcp-api-key match is FullCalendar's public demo key, not a
+# Netresearch credential.
+1877e081b836af495289b2a06a54ca4d9066cfd5:www/js/fullcalendar-2.2.6/demos/gcal.html:gcp-api-key:20
