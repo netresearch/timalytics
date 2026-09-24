@@ -2,6 +2,14 @@ version: '2'
 services:
   web:
     image: nginx:alpine
+    security_opt:
+      - no-new-privileges:true
+    # nginx:alpine writes only its temp paths and pid/lock file
+    # (nginx -V: /var/cache/nginx/*, /run/nginx.pid, /run/nginx.lock)
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /run
     depends_on:
       - php
     ports:
@@ -18,6 +26,8 @@ services:
 
   php:
     image: php:8-fpm-alpine
+    security_opt:
+      - no-new-privileges:true
     depends_on:
       - db
     volumes:
@@ -29,6 +39,8 @@ services:
 
   db:
     image: mariadb
+    security_opt:
+      - no-new-privileges:true
     environment:
       - MYSQL_ROOT_PASSWORD=timalytics_root
       - MYSQL_DATABASE=timalytics
@@ -39,6 +51,8 @@ services:
 
   pma:
     image: phpmyadmin/phpmyadmin
+    security_opt:
+      - no-new-privileges:true
     depends_on:
       - db
     ports:
