@@ -51,6 +51,25 @@ HTML;
 
 
 /**
+ * Run an SQL statement with bound parameters.
+ *
+ * @param PDO    $db
+ * @param string $sql    SQL with ? placeholders
+ * @param array  $params Values for the placeholders, in order
+ *
+ * @return PDOStatement
+ */
+function dbQuery(PDO $db, $sql, array $params = array())
+{
+    $stmt = $db->prepare($sql);
+    $stmt->execute($params);
+
+    return $stmt;
+}
+
+
+
+/**
  * @param PDO $db
  *
  * @return array

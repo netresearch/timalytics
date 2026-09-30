@@ -45,13 +45,15 @@ if (isset($_GET['hoursPerDay'])) {
     $monthStart = $year . '-' . $month . '-01';
     $monthEnd = date('Y-m-t', strtotime($monthStart));
 
-    $contractStmt = $db->query(
+    $contractStmt = dbQuery(
+        $db,
         'SELECT contracts.*, contracts.start as contract_start, contracts.end as contract_end FROM contracts'
         . ' JOIN users ON (users.id = contracts.user_id)'
-        . ' WHERE users.username = ' . $dbTools->quote($user)
-        . ' AND (contracts.start IS NULL OR contracts.start <= "' . $monthEnd . '")'
-        . ' AND (contracts.end IS NULL OR contracts.end >= "' . $monthStart . '")'
-        . ' ORDER BY contracts.start ASC'
+        . ' WHERE users.username = ?'
+        . ' AND (contracts.start IS NULL OR contracts.start <= ?)'
+        . ' AND (contracts.end IS NULL OR contracts.end >= ?)'
+        . ' ORDER BY contracts.start ASC',
+        array($user, $monthEnd, $monthStart)
     );
 
     $arContracts = [];
@@ -101,21 +103,25 @@ $urlPrev = '?month=' . $prevMonth . '&year=' . $prevYear . '&user=' . $user;
 $urlNext = '?month=' . $nextMonth . '&year=' . $nextYear . '&user=' . $user;
 $urlToday = '?month=' . date('m') . '&year=' . date('Y') . '&user=' . $user;
 
-$pmRow = $dbTools->query(
+$pmRow = dbQuery(
+    $dbTools,
     'SELECT pm_minutes_absolute FROM plusminus'
-    . ' WHERE pm_username = ' . $dbTools->quote($user)
-    . ' AND pm_year = ' . (int)$prevYear
-    . ' AND pm_month = ' . (int)$prevMonth
+    . ' WHERE pm_username = ?'
+    . ' AND pm_year = ?'
+    . ' AND pm_month = ?',
+    array($user, (int)$prevYear, (int)$prevMonth)
 )->fetchObject();
 $plusminusHours = null;
 if ($pmRow) {
     $plusminusHours = $pmRow->pm_minutes_absolute / 60;
 } else {
-    $firstRow = $db->query(
+    $firstRow = dbQuery(
+        $db,
         'SELECT day FROM entries'
         . ' JOIN users ON (users.id = entries.user_id)'
-        . ' WHERE users.username = ' . $dbTools->quote($user)
-        . ' ORDER BY day LIMIT 1'
+        . ' WHERE users.username = ?'
+        . ' ORDER BY day LIMIT 1',
+        array($user)
     )->fetchObject();
     if ($firstRow !== false) {
         list($firstYear, $firstMonth) = explode('-', $firstRow->day);
@@ -130,22 +136,26 @@ if ($pmRow) {
     }
 }
 
-$pmRowThisMonth = $dbTools->query(
+$pmRowThisMonth = dbQuery(
+    $dbTools,
     'SELECT pm_minutes, pm_minutes_absolute FROM plusminus'
-    . ' WHERE pm_username = ' . $dbTools->quote($user)
-    . ' AND pm_year = ' . (int) $year
-    . ' AND pm_month = ' . (int) $month
+    . ' WHERE pm_username = ?'
+    . ' AND pm_year = ?'
+    . ' AND pm_month = ?',
+    array($user, (int) $year, (int) $month)
 )->fetchObject();
 $plusminusHoursThisMonth = null;
 if ($pmRowThisMonth) {
     $plusminusHoursThisMonth = $pmRowThisMonth->pm_minutes_absolute / 60;
 }
 
-$pmRowNextMonth = $dbTools->query(
+$pmRowNextMonth = dbQuery(
+    $dbTools,
     'SELECT pm_minutes_absolute FROM plusminus'
-    . ' WHERE pm_username = ' . $dbTools->quote($user)
-    . ' AND pm_year = ' . (int) $nextYear
-    . ' AND pm_month = ' . (int) $nextMonth
+    . ' WHERE pm_username = ?'
+    . ' AND pm_year = ?'
+    . ' AND pm_month = ?',
+    array($user, (int) $nextYear, (int) $nextMonth)
 )->fetchObject();
 $plusminusHoursNextMonth = null;
 if ($pmRowNextMonth) {
@@ -153,12 +163,14 @@ if ($pmRowNextMonth) {
 }
 
 
-$stmt = $db->query(
+$stmt = dbQuery(
+    $db,
     'SELECT day, SUM(duration) as minutes FROM entries'
     . ' JOIN users ON (users.id = entries.user_id)'
-    . ' WHERE users.username = ' . $dbTools->quote($user)
-    . ' AND day LIKE "' . (int)$year . '-' . $month . '-%"'
-    . ' GROUP BY day ORDER BY day ASC'
+    . ' WHERE users.username = ?'
+    . ' AND day LIKE ?'
+    . ' GROUP BY day ORDER BY day ASC',
+    array($user, (int)$year . '-' . $month . '-%')
 );
 $holidays = require __DIR__ . '/../data/feiertage.php';
 

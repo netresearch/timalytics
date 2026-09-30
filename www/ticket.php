@@ -37,12 +37,12 @@ $strSQL = <<<SQL
      JOIN users ON entries.user_id = users.id
      JOIN activities ON entries.activity_id = activities.id
 LEFT JOIN ticket_systems ON projects.ticket_system = ticket_systems.id
-    WHERE entries.ticket = '{$ticket}'
+    WHERE entries.ticket = ?
  ORDER BY entries.day DESC,
           entries.start DESC
 SQL;
 
-$statement = $db->query($strSQL);
+$statement = dbQuery($db, $strSQL, array((string) $ticket));
 
 $arCustomers = array();
 foreach ($statement as $arRow) {

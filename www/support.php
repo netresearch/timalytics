@@ -35,8 +35,8 @@ $strSQL = <<<SQL
      JOIN projects ON entries.project_id = projects.id
      JOIN customers ON entries.customer_id = customers.id
 LEFT JOIN ticket_systems ON projects.ticket_system = ticket_systems.id
-    WHERE MONTH(entries.day) = {$month}
-      AND YEAR(day) = {$year}
+    WHERE MONTH(entries.day) = ?
+      AND YEAR(day) = ?
       AND entries.ticket <> ''
       AND projects.billing = 3 -- 3 = support
  GROUP BY entries.ticket, entries.project_id, entries.customer_id
@@ -45,7 +45,7 @@ LEFT JOIN ticket_systems ON projects.ticket_system = ticket_systems.id
           entries.ticket
 SQL;
 
-$statement = $db->query($strSQL);
+$statement = dbQuery($db, $strSQL, array($month, $year));
 
 $arTickets = array();
 
@@ -97,9 +97,13 @@ foreach ($statement as $arRow) {
 }
 
 if (count($arTickets) > 0) {
-    $strTickets = "'" . implode("','", $arTickets) . "'";
+    // Copy the names by value: the entries of $arTickets are references,
+    // and the loops below overwrite them with result rows.
+    $ticketNames = array_map('strval', array_values($arTickets));
+    $strTickets  = implode(',', array_fill(0, count($ticketNames), '?'));
     // get booked ticket duration for selected month - independent
     // of project and customer
+    // nosemgrep: php.lang.security.injection.tainted-sql-string.tainted-sql-string -- $strTickets is a list of ? placeholders
     $strSQL = <<<SQL
        SELECT ticket AS name,
 --              COUNT(DISTINCT customer_id) - 1 AS customer_cnt,
@@ -108,12 +112,12 @@ if (count($arTickets) > 0) {
               SUM(duration) AS duration
          FROM entries
         WHERE ticket IN ({$strTickets})
-          AND MONTH(entries.day) = {$month}
-          AND YEAR(day) = {$year}
+          AND MONTH(entries.day) = ?
+          AND YEAR(day) = ?
      GROUP BY ticket
 SQL;
 
-    $statement = $db->query($strSQL);
+    $statement = dbQuery($db, $strSQL, array_merge($ticketNames, array($month, $year)));
     foreach ($statement as $arRow) {
         $arRow['url']
             = 'ticket.php?ticket=' . $arRow['name'];
@@ -124,6 +128,7 @@ SQL;
 
     // get booked ticket duration for whole lifetime - independent
     // of project and customer
+    // nosemgrep: php.lang.security.injection.tainted-sql-string.tainted-sql-string -- $strTickets is a list of ? placeholders
     $strSQL = <<<SQL
        SELECT ticket AS name,
               COUNT(DISTINCT customer_id) - 1 AS customer_cnt,
@@ -135,7 +140,7 @@ SQL;
      GROUP BY ticket
 SQL;
 
-    $statement = $db->query($strSQL);
+    $statement = dbQuery($db, $strSQL, $ticketNames);
     foreach ($statement as $arRow) {
         $arTickets[$arRow['name']] = array_merge(
             $arTickets[$arRow['name']], $arRow
