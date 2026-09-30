@@ -8,7 +8,8 @@ if (isset($_GET['timespan'])) {
     $timespan = filter_var($_GET['timespan'], FILTER_SANITIZE_NUMBER_INT);
 }
 
-$stmt = $db->query(
+$stmt = dbQuery(
+    $db,
     'SELECT DISTINCT'
     . ' project_id, projects.name AS project, customers.name AS customer'
     . ', estimation, jira_id as ts_prefix'
@@ -17,9 +18,10 @@ $stmt = $db->query(
     . ' JOIN projects ON project_id = projects.id'
     . ' JOIN customers ON projects.customer_id = customers.id'
     . ' LEFT JOIN ticket_systems ON projects.ticket_system = ticket_systems.id'
-    . ' WHERE day >= (NOW() - INTERVAL ' . $timespan . ' DAY)'
+    . ' WHERE day >= (NOW() - INTERVAL ? DAY)'
     . ' AND estimation > 0'
-    . ' ORDER BY customers.name, projects.name'
+    . ' ORDER BY customers.name, projects.name',
+    array((int) $timespan)
 );
 
 $projects = array();

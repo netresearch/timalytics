@@ -41,7 +41,8 @@ if (isset($_GET['format'])) {
     $format = $_GET['format'];
 }
 
-$stmt = $db->query(
+$stmt = dbQuery(
+    $db,
     'SELECT day, start, end, duration, description'
     . ', entries.id AS entry_id'
     . ', customers.id AS cust_id'
@@ -53,10 +54,11 @@ $stmt = $db->query(
     . ' JOIN customers ON (customers.id = entries.customer_id)'
     . ' JOIN activities ON (activities.id = entries.activity_id)'
     . ' JOIN projects ON (projects.id = entries.project_id)'
-    . ' WHERE users.username = ' . $db->quote($user)
-    . ' AND day >= ' . $db->quote(date('Y-m-d', $start))
-    . ' AND day <= ' . $db->quote(date('Y-m-d', $end))
-    . ' ORDER BY day ASC'
+    . ' WHERE users.username = ?'
+    . ' AND day >= ?'
+    . ' AND day <= ?'
+    . ' ORDER BY day ASC',
+    array($user, date('Y-m-d', $start), date('Y-m-d', $end))
 );
 
 if ($format == 'ical') {

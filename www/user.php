@@ -12,7 +12,8 @@ if (!isValidUser($user)) {
     die('Invalid user');
 }
 
-$res = $db->query(
+$res = dbQuery(
+    $db,
     'SELECT entries.*'
     . ', projects.name as project_name'
     . ', customers.name as customer_name'
@@ -22,11 +23,10 @@ $res = $db->query(
     . ' JOIN customers ON entries.customer_id = customers.id'
     . ' JOIN activities ON entries.activity_id = activities.id'
     . ' JOIN users ON entries.user_id = users.id'
-    . ' WHERE users.username = '
-    . $db->quote($user)
+    . ' WHERE users.username = ?'
     . ' ORDER BY day DESC, start DESC'
     . ' LIMIT 40',
-    PDO::FETCH_ASSOC
+    array($user)
 );
 
 $arSinceStandup = array();

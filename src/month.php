@@ -6,17 +6,12 @@
 //Stundenmeldung
 if (isset($_POST['report']) && isset($_POST['minutes'])) {
     $minutes = (int) $_POST['minutes'];
-    $dbTools->query(
+    dbQuery(
+        $dbTools,
         'INSERT INTO plusminus'
         . '(pm_username, pm_year, pm_month, pm_minutes, pm_minutes_absolute)'
-        . ' VALUES'
-        . '('
-        . $dbTools->quote($user)
-        . ',' . $dbTools->quote($year)
-        . ',' . $dbTools->quote($month)
-        . ',' . $dbTools->quote($minutes)
-        . ',' . $dbTools->quote($pmRow->pm_minutes_absolute + $minutes)
-        . ')'
+        . ' VALUES (?, ?, ?, ?, ?)',
+        array($user, $year, $month, $minutes, $pmRow->pm_minutes_absolute + $minutes)
     );
     header('Location: ' . $urlThis);
     exit();
@@ -29,11 +24,13 @@ if ($GLOBALS['cfg']['allowDelete']
     && isset($_POST['delete']) && $_POST['delete'] == 1
     && isset($_POST['really']) && $_POST['really'] === 'yes'
 ) {
-    $dbTools->query(
+    dbQuery(
+        $dbTools,
         'DELETE FROM plusminus'
-        . ' WHERE pm_username = ' . $dbTools->quote($user)
-        . ' AND pm_year = ' . intval($year)
-        . ' AND pm_month = ' . intval($month)
+        . ' WHERE pm_username = ?'
+        . ' AND pm_year = ?'
+        . ' AND pm_month = ?',
+        array($user, intval($year), intval($month))
     );
     header('Location: ' . $urlThis);
     exit();
