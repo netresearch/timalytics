@@ -21,7 +21,13 @@ $GLOBALS['cfg']['TT_DB_PASS'] = '';
 $GLOBALS['cfg']['TT_DB_USER'] = 'timetracker';
 $GLOBALS['cfg']['TT_DB_NAME'] = 'timetracker';
 
+// Whose data a visitor may see:
+// - arAllowedUsers: only these users (src/timetrackersessionuser.php fills it
+//   with the logged-in timetracker user and, for a project leader, the team);
+// - else allowAllUsers = true: every user;
+// - else only the user that arIpUser maps the visitor's IP address to.
 $GLOBALS['cfg']['arAllowedUsers']  = array();
+$GLOBALS['cfg']['allowAllUsers']   = false;
 $GLOBALS['cfg']['arIpUser']        = array();
 $GLOBALS['cfg']['arInactiveUsers'] = array();
 

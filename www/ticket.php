@@ -24,6 +24,7 @@ $strSQL = <<<SQL
           entries.duration,
           entries.id,
           users.abbr AS user,
+          users.username AS username,
           activities.name AS activity,
           projects.name AS project,
           projects.jira_id as ts_prefix,
@@ -46,6 +47,9 @@ $statement = dbQuery($db, $strSQL, array((string) $ticket));
 
 $arCustomers = array();
 foreach ($statement as $arRow) {
+    if (!isValidUser($arRow['username'])) {
+        continue;
+    }
 
     if (empty($arCustomers[$arRow['ticket']])) {
         $arCustomers[$arRow['ticket']] = array(

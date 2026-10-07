@@ -127,14 +127,45 @@ function loadUsername()
     return $user;
 }
 
+/**
+ * Whether the visitor may see the data of $user.
+ *
+ * - arAllowedUsers set (by config.php or src/timetrackersessionuser.php):
+ *   only the users listed there.
+ * - allowAllUsers set to true: every user.
+ * - neither: only the user that arIpUser assigns to the visitor's IP address.
+ *
+ * @param string|null $user
+ *
+ * @return bool
+ */
 function isValidUser($user)
 {
-    if (count($GLOBALS['cfg']['arAllowedUsers'])
-        && false === array_search($user, $GLOBALS['cfg']['arAllowedUsers'])
-    ) {
+    if (!is_string($user) || $user === '') {
         return false;
     }
-    return true;
+    if (count($GLOBALS['cfg']['arAllowedUsers'])) {
+        return in_array($user, $GLOBALS['cfg']['arAllowedUsers'], true);
+    }
+    if (!empty($GLOBALS['cfg']['allowAllUsers'])) {
+        return true;
+    }
+    return $user === getIpUser();
+}
+
+
+/**
+ * The user that arIpUser assigns to the visitor's IP address.
+ *
+ * @return string|null
+ */
+function getIpUser()
+{
+    $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+    if (isset($GLOBALS['cfg']['arIpUser'][$ip])) {
+        return $GLOBALS['cfg']['arIpUser'][$ip];
+    }
+    return null;
 }
 
 
@@ -145,10 +176,8 @@ function isValidUser($user)
  */
 function getUserByIp()
 {
-    $ip = $_SERVER['REMOTE_ADDR'];
-    if (isset($GLOBALS['cfg']['arIpUser'][$ip])) {
-        $user = $GLOBALS['cfg']['arIpUser'][$ip];
-    } else {
+    $user = getIpUser();
+    if ($user === null) {
         $arUsers = getActiveUsers($GLOBALS['db']);
         reset($arUsers);
         $user = key($arUsers);
