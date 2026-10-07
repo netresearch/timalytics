@@ -27,7 +27,10 @@ in ``config.php``:
 - ``arAllowedUsers``: only the listed users. Requiring
   ``src/timetrackersessionuser.php`` in ``config.php`` fills it with the user
   logged into the timetracker and, for a project leader, the members of their
-  teams; Timalytics then has to run in a subdirectory of the timetracker.
+  teams. The file reads the timetracker's PHP session from
+  ``../../app/cache/*/sessions/`` relative to ``src/``, so Timalytics has to
+  run in a subdirectory of a timetracker installation that keeps its sessions
+  there.
 - ``allowAllUsers = true``: every user. Use this only where the web server
   restricts who can reach Timalytics.
 - Neither: only the user that ``arIpUser`` maps the visitor's IP address to.
