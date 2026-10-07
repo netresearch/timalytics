@@ -37,7 +37,9 @@ in ``config.php``:
   Without such a mapping every page answers "Invalid user".
 
 The same rule applies to the user selection, the standup tool and the
-bookings listed on the ticket page.
+bookings listed on the ticket page. The project and support pages total the
+bookings of all users per customer and project, so they are available only
+with ``allowAllUsers = true`` and answer "Access denied" otherwise.
 
 Starting
 ========

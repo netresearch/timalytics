@@ -32,8 +32,10 @@ if (isset($user) && $user !== '') {
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'index.php') echo 'class="active"'; ?>><a href="index.php<?php echo hs($userParam); ?>">Monat</a></li>
+<?php if (mayViewAllData()) { ?>
                     <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'projects.php') echo 'class="active"'; ?>><a href="projects.php">Projekt</a></li>
                     <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'support.php') echo 'class="active"'; ?>><a href="support.php">Support</a></li>
+<?php } ?>
                     <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'standup.php') echo 'class="active"'; ?>><a href="standup.php">Standup</a></li>
                     <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'calendar.php') echo 'class="active"'; ?>><a href="calendar.php<?php echo hs($userParam); ?>">Kalender</a></li>
                 </ul>
