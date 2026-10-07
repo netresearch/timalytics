@@ -48,7 +48,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="index.php">Monat</a></li>
-                {% if cfg.allowAllUsers %}
+                {% if cfg.allowAllUsers and not cfg.arAllowedUsers %}
                 <li><a href="projects.php">Projekt</a></li>
                 <li><a href="support.php">Support</a></li>
                 {% endif %}
