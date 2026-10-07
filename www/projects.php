@@ -2,6 +2,11 @@
 
 require_once __DIR__ . '/../src/bootstrap.php';
 
+if (!mayViewAllData()) {
+    http_response_code(403);
+    die('Access denied');
+}
+
 $timespan = 7;
 
 if (isset($_GET['timespan'])) {
