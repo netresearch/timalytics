@@ -76,8 +76,12 @@ include __DIR__ . '/../data/templates/head.tpl.php';
 		$('#loading').toggle(bool);
 	    },
             eventRender: function(event, element) {
+                // The description is booking text: insert it as text, one
+                // line per customer, project, activity and description.
                 element.qtip({
-                    content: event.description
+                    content: {
+                        text: $('<div/>').css('white-space', 'pre-line').text(event.description)
+                    }
                 });
 	    }
 	});
