@@ -4,12 +4,14 @@
  */
 require_once __DIR__ . '/../src/bootstrap.php';
 
+$userHtml = hs($user);
+$userUrl  = hs(rawurlencode($user));
 
 echo <<<HTML
 <!DOCTYPE html>
 <html lang="en">
  <head>
-  <title>Zusammenfassung {$user} {$year}-{$month}</title>
+  <title>Zusammenfassung {$userHtml} {$year}-{$month}</title>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +28,7 @@ echo <<<HTML
 <div class="row">
     <div class="col-md-4">
     <p style="margin-top: 0.5em">
-     <a href="/?user={$user}" target="_blank">Monatsauswertung</a> {$user} {$year}-{$month}
+     <a href="/?user={$userUrl}" target="_blank">Monatsauswertung</a> {$userHtml} {$year}-{$month}
     </p>
     <table class="table table-bordered table-hover table-condensed" style="margin-bottom: 0">
 HTML;

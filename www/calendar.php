@@ -67,7 +67,7 @@ include __DIR__ . '/../data/templates/head.tpl.php';
             //slotDuration: '00:15:00',
 	    eventLimit: true, // allow "more" link when too many events
 	    events: {
-		url: 'ical.php?format=json&user=<?php echo $user; ?>',
+		url: 'ical.php?format=json&user=<?php echo rawurlencode($user); ?>',
 		error: function() {
 		    $('#script-warning').show();
 		}
@@ -91,7 +91,7 @@ include __DIR__ . '/../data/templates/head.tpl.php';
 
   <div id='calendar'></div>
   <p style="text-align: center">
-   <a href="ical.php?user=<?php echo $user; ?>">iCal download</a>
+   <a href="ical.php?user=<?php echo hs(rawurlencode($user)); ?>">iCal download</a>
   </p>
 <?php
 include __DIR__ . '/../data/templates/foot.tpl.php';
