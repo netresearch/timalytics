@@ -16,11 +16,11 @@ function printTicketEntryRow($arData)
     ?>
 
     <tr class="<?php echo $style; ?>">
-        <td><?php echo $arData['user']; ?></td>
-        <td><?php echo $arData['day']; ?></td>
-        <td><?php echo $arData['start']; ?></td>
-        <td><?php echo $arData['activity']; ?></td>
-        <td><?php echo $arData['description']; ?></td>
+        <td><?php echo hs($arData['user']); ?></td>
+        <td><?php echo hs($arData['day']); ?></td>
+        <td><?php echo hs($arData['start']); ?></td>
+        <td><?php echo hs($arData['activity']); ?></td>
+        <td><?php echo hs($arData['description']); ?></td>
         <td class="r"><?php echo formatTime($arData['duration']); ?></td>
     </tr>
 <?php
