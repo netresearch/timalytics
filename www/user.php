@@ -114,9 +114,8 @@ foreach ($arProjects as &$arProject) {
 }
 
 
-Twig_Autoloader::register();
-$twig = new Twig_Environment(
-    new Twig_Loader_Filesystem(__DIR__ . '/../data/templates/')
+$twig = new \Twig\Environment(
+    new \Twig\Loader\FilesystemLoader(__DIR__ . '/../data/templates/')
 );
 echo $twig->render(
     'user.twig',
