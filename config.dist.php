@@ -39,7 +39,8 @@ $GLOBALS['cfg']['URL_BOOTSTRAP_THEME'] = 'css/bootstrap-theme.min.css';
 $GLOBALS['cfg']['URL_JQUERY_JS'] = 'js/jquery.min.js';
 $GLOBALS['cfg']['URL_BOOTSTRAP_JS'] = 'js/bootstrap.min.js';
 $GLOBALS['cfg']['URL_MASONRY_JS'] = 'js/masonry.pkgd.min.js';
-$GLOBALS['cfg']['URL_BUGTRACKER'] = 'https://bugs.nr/';
+// Base URL the ticket key is appended to, e.g. https://jira.example.org/browse/
+$GLOBALS['cfg']['URL_BUGTRACKER'] = 'https://jira.example.org/browse/';
 
 //Halve target time for special days (e.g. holidays)
 $GLOBALS['cfg']['HALF_DAY_POLICY'] = false;
