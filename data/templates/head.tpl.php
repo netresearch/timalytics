@@ -1,7 +1,7 @@
 <?php
 $userParam = '';
 if (isset($user) && $user !== '') {
-    $userParam = '?user=' . $user;
+    $userParam = '?user=' . rawurlencode($user);
 }
 ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ if (isset($user) && $user !== '') {
         <meta charset="utf-8" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?php if (! empty($strTitle)) echo $strTitle; else echo 'Timetracker Auswertung'; ?></title>
+        <title><?php if (! empty($strTitle)) echo hs($strTitle); else echo 'Timetracker Auswertung'; ?></title>
         <link type="text/css" href="<?= hs($GLOBALS['cfg']['URL_BOOTSTRAP_CSS']); ?>" rel="stylesheet">
         <link type="text/css" href="<?= hs($GLOBALS['cfg']['URL_BOOTSTRAP_THEME']); ?>" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="custom.css" />
@@ -31,11 +31,11 @@ if (isset($user) && $user !== '') {
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'index.php') echo 'class="active"'; ?>><a href="index.php<?php echo $userParam; ?>">Monat</a></li>
+                    <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'index.php') echo 'class="active"'; ?>><a href="index.php<?php echo hs($userParam); ?>">Monat</a></li>
                     <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'projects.php') echo 'class="active"'; ?>><a href="projects.php">Projekt</a></li>
                     <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'support.php') echo 'class="active"'; ?>><a href="support.php">Support</a></li>
                     <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'standup.php') echo 'class="active"'; ?>><a href="standup.php">Standup</a></li>
-                    <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'calendar.php') echo 'class="active"'; ?>><a href="calendar.php<?php echo $userParam;?>">Kalender</a></li>
+                    <li <?php if (basename($_SERVER['SCRIPT_NAME']) == 'calendar.php') echo 'class="active"'; ?>><a href="calendar.php<?php echo hs($userParam); ?>">Kalender</a></li>
                 </ul>
 
 <?php
