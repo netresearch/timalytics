@@ -18,6 +18,24 @@ Installation
 #. create database and tables from data/tables.sql - if not using docker-compose
 #. copy over config.dist.php to config.php and fill in
 
+Access
+======
+
+Timalytics has no login of its own. Which users' data a visitor sees is set
+in ``config.php``:
+
+- ``arAllowedUsers``: only the listed users. Requiring
+  ``src/timetrackersessionuser.php`` in ``config.php`` fills it with the user
+  logged into the timetracker and, for a project leader, the members of their
+  teams; Timalytics then has to run in a subdirectory of the timetracker.
+- ``allowAllUsers = true``: every user. Use this only where the web server
+  restricts who can reach Timalytics.
+- Neither: only the user that ``arIpUser`` maps the visitor's IP address to.
+  Without such a mapping every page answers "Invalid user".
+
+The same rule applies to the user selection, the standup tool and the
+bookings listed on the ticket page.
+
 Starting
 ========
 
