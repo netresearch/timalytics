@@ -158,14 +158,16 @@ function isValidUser($user)
  * Whether the visitor may see the company-wide pages (projects, support).
  *
  * Both pages total the bookings of every user per customer, project and
- * ticket, so they follow allowAllUsers only; a visitor who is limited to
- * some users by arAllowedUsers or arIpUser does not see them.
+ * ticket, so they need allowAllUsers, and arAllowedUsers, which isValidUser()
+ * lets override allowAllUsers, takes them away again; a visitor who is limited
+ * to some users by arAllowedUsers or arIpUser does not see them.
  *
  * @return bool
  */
 function mayViewAllData()
 {
-    return !empty($GLOBALS['cfg']['allowAllUsers']);
+    return !empty($GLOBALS['cfg']['allowAllUsers'])
+        && !count($GLOBALS['cfg']['arAllowedUsers']);
 }
 
 
