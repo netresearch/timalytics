@@ -118,6 +118,41 @@ function displayIcal($stmt, $user)
     echo "END:VCALENDAR\r\n";
 }
 
+/**
+ * A fully saturated colour per customer: hue = customer id * 10 degrees,
+ * saturation 1, lightness 0.5, as hex "#rrggbb". This is the HSL to RGB
+ * conversion pear/image_color2 0.5.1 performed for these values, written out
+ * because that package does not parse on PHP 8.
+ *
+ * @param int $customerId
+ *
+ * @return string
+ */
+function getCustomerColor($customerId)
+{
+    $hue = (($customerId * 10) % 360) / 360;
+    $rgb = array();
+    foreach (array($hue + 1 / 3, $hue, $hue - 1 / 3) as $vH) {
+        if ($vH < 0) {
+            $vH += 1;
+        }
+        if ($vH > 1) {
+            $vH -= 1;
+        }
+        if (6 * $vH < 1) {
+            $value = 6 * $vH;
+        } elseif (2 * $vH < 1) {
+            $value = 1;
+        } elseif (3 * $vH < 2) {
+            $value = ((2 / 3) - $vH) * 6;
+        } else {
+            $value = 0;
+        }
+        $rgb[] = (int) ($value * 255 + 0.5);
+    }
+    return sprintf('#%02x%02x%02x', $rgb[0], $rgb[1], $rgb[2]);
+}
+
 function displayJson($stmt)
 {
     $data = array();
@@ -125,12 +160,7 @@ function displayJson($stmt)
         $nStart = strtotime($row['day'] . ' ' . $row['start']);
         $nEnd   = strtotime($row['day'] . ' ' . $row['end']);
 
-        $hsl = Image_Color2_Model_Hsl::fromArray(
-            array(($row['cust_id'] * 10) % 360, 1, 0.5)
-        );
-        $arColor = $hsl->getRgb();
-        $ic = new Image_Color2($arColor);
-        $color  = $ic->getHex();
+        $color = getCustomerColor((int) $row['cust_id']);
 
         $data[] = (object) array(
             'title' => $row['description'],
