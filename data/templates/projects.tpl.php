@@ -13,7 +13,7 @@
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>currently active projects for <?php echo $customer; ?></th>
+                        <th>currently active projects for <?php echo hs($customer); ?></th>
                         <th style="text-align: right;">Estimated</th>
                         <th style="text-align: right;">Current</th>
                         <th style="border-left: none;">&nbsp;</th>

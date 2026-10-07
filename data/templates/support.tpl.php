@@ -35,7 +35,7 @@ function printSummarizeRow($arData, $nLevel = 0)
             if (! empty($arData['url'])) {
                 echo '<a href="' . hs($arData['url']) . '">';
             }
-            echo $arData['name'];
+            echo hs($arData['name']);
             if (! empty($arData['url'])) {
                 echo '</a>';
             }
