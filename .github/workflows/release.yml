@@ -1,0 +1,33 @@
+name: Release
+
+# Creates the GitHub release for a pushed tag. The source archive, SBOMs,
+# checksums, signatures, attestations and the release itself come from the
+# reusable workflow in netresearch/.github. Tag with `git tag -s vX.Y.Z`.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions: {}
+
+jobs:
+  release:
+    uses: netresearch/.github/.github/workflows/release-source-archive.yml@main
+    permissions:
+      contents: write # create the release
+      id-token: write # Sigstore OIDC identity
+      attestations: write # file the attestations with GitHub
+
+  # The release is created with GITHUB_TOKEN, which starts no `release` event,
+  # so the check of the published release runs as a job here.
+  verify:
+    needs: release
+    uses: netresearch/.github/.github/workflows/verify-release.yml@main
+    permissions:
+      contents: read
+      attestations: read
+      id-token: write # cosign verify-blob
+    with:
+      tag: ${{ github.ref_name }}
+      identity-regexp: '^https://github\.com/netresearch/\.github/\.github/workflows/release-source-archive\.yml@'
+      signer-workflow: netresearch/.github/.github/workflows/release-source-archive.yml
