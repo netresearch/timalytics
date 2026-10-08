@@ -48,7 +48,7 @@ Starting
 Docker
 ------
 
-Starts a single PHP 7 Container as web server with Timalytics sources::
+Starts a single PHP 8 Container as web server with Timalytics sources::
 
     $ run ./run.sh
 
@@ -60,7 +60,7 @@ DB server for Timalytics must be prepared manually.
 Docker + docker-compose
 -----------------------
 
-Starts a single PHP 7 Container as web server with Timalytics sources and a
+Starts a single PHP 8 Container as web server with Timalytics sources and a
 linked MariaDB server with Timalytics database and tables prepared::
 
     $ docker-compose up web
